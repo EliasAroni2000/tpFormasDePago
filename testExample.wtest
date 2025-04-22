@@ -1,0 +1,45 @@
+import example.*
+
+describe "tests de compras" {
+  test "cacho pierde dinero al pagar con uala" {
+    cacho.comprar(leche)
+    // deberia dar 700 porque la leche cuesta 800, ya que aplica el descuento de la forma de pago
+    assert.equals(700, cacho.comprar(leche))
+  }
+}
+
+describe "tests de precio de la sandia y no es verano" {
+  test "si no es verano el precio de la sandia aumenta" {
+    verano.cambiarEstacion()
+    sandia.precio()
+    // deberia dar 5, ya que cambia la estacion
+    assert.equals(5, sandia.precio())
+  }
+}
+
+describe "test de comprar sandia con uala" {
+  test "si compra una sandia y se paga con uala, el total debe ser menor a precio*peso en gramos" {
+    //deberia en este caso dar 1000*2*0.8 = 1600
+    assert.equals(1600, sandia.total(uala))
+  }
+}
+
+describe "test de comprar sandia con tarjeta de credito" {
+  test "si compra una sandia y se paga con tarjeta de credico, el total debe ser mayor a precio*peso en gramos" {
+    //deberia en este caso dar 1000*2*1.5 = 3000
+    assert.equals(3000, sandia.total(tarjetaDeCredito))
+  }
+}
+
+describe "test de comprar sandia con efectivo" {
+  test "si compra una sandia y se paga con efectivo, el total debe ser igual a precio*peso en gramos" {
+    //deberia en este caso dar 1000*2*1 = 2000
+    assert.equals(2000, sandia.total(efectivo))
+  }
+}
+
+describe "tests de productos" {
+  test "la leche vale 2000" {
+    assert.equals(2000, leche.precio())
+  }
+}

@@ -1,5 +1,5 @@
 object cacho {
-  var formaDePago = efectivo
+  var formaDePago = uala
   
   method puedeComprar(algo) = formaDePago.montoDisponible() >= algo.total(
     self.formaDePago()
@@ -10,10 +10,19 @@ object cacho {
   }
   
   method formaDePago() = formaDePago
+  
+  method comprar(algo) = if (self.puedeComprar(algo))
+                           formaDePago.montoDisponible() - algo.total(
+                             self.formaDePago()
+                           )
 }
 
 object leche {
-  method precio() = 2000
+  var precio = 1000
+  
+  method precio() = 1000
+  
+  method total(algo) = self.precio() * algo.descuento()
 }
 
 object cereza {
@@ -57,7 +66,7 @@ object sandia {
 }
 
 object uala {
-  var monto = 5000
+  var monto = 1500
   const descuento = 0.8
   
   method descuento() = descuento
@@ -72,10 +81,12 @@ object efectivo {
   method descuento() = descuento
   
   method montoDisponible() = monto
+  
+  method gastadoHastaAhora() = 0
 }
 
 object tarjetaDeCredito {
-  const limite = 100000
+  const limite = 5
   var estaActiva = true
   const descuento = 1.5
   
